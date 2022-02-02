@@ -9,8 +9,12 @@ function App() {
   const [activities, setActivities] = useState([])
   const [loading, setLoading] = useState(false)
 
-  //Fetches from the acitivities api
-  const fetchActs = async() =>{
+
+  //runs on change of category and on initial render
+  useEffect(()=>{
+
+    //Fetches from the acitivities api
+    const fetchActs = async() =>{
       setLoading(true)
       try{
         const acts = await fetch(`${URL+category}`).then(res=>res.json()).then(acts=>acts.activities)
@@ -20,12 +24,10 @@ function App() {
         console.log(err)
         setLoading(false)
       }
-  }
+    } 
 
-
-  //runs on change of category and on initial render
-  useEffect(()=>{
     fetchActs()
+
   }, [category])
   
   return (
